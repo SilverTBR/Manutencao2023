@@ -1,0 +1,43 @@
+drop table if exists emprestimo;
+drop table if exists cliente;
+drop table if exists livro;
+
+create table if not exists cliente(
+id_cliente SERIAL primary key,
+nome varchar(45) not null,
+sobrenome varchar(60) not null,
+CPF varchar(14) not null,
+estado char(2) not null,
+cidade varchar(50) not null,
+bairro varchar (50) not null,
+endereco varchar(75) not null
+);
+
+create table if not exists livro(
+id_livro SERIAL primary key,
+titulo varchar(100) not null,
+nome_autor varchar(45) not null,
+sobrenome_autor varchar(60) not null,
+paginas integer not null,
+genero varchar(45) not null,
+editora varchar(50) not null
+);
+
+create table if not exists aluguel(
+id_aluguel serial primary key ,
+id_cliente integer not null,
+id_livro integer not null,
+data_aluguel varchar(10) not null,
+data_devolucao varchar(10) not null,
+devolucao boolean not null,
+CONSTRAINT fk_id_cliente
+    FOREIGN KEY (id_cliente)
+    REFERENCES cliente (id_cliente)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT fk_id_livro
+    FOREIGN KEY (id_livro)
+    REFERENCES livro (id_livro)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION 
+);
