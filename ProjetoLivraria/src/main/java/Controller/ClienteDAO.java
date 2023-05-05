@@ -19,6 +19,7 @@ public class ClienteDAO extends DAO{
 
     private static final String inserirClientes = "INSERT INTO cliente (nome, sobrenome, cpf, estado, cidade, bairro, endereco) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String excluirTudo = "delete from cliente";
+    private static final String verCPF = "SELECT cpf FROM cliente WHERE cpf = ?";
     private static final String consultarClientes = "SELECT * FROM cliente ORDER BY id_cliente";
     private static final String consultarCount = "SELECT COUNT(id_cliente) FROM cliente";
     private static final String verCliente = "SELECT id_cliente FROM cliente WHERE id_cliente = ?";
@@ -95,6 +96,23 @@ public class ClienteDAO extends DAO{
                 System.out.println("Erro ao executar consulta: " + erro);
             }
             return false;
+    }
+    
+        public boolean verificarCPF(){
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(verCPF, tipo, concorrencia);
+            pstdados.setString(1, cliente.getCPF());
+            rsdados = pstdados.executeQuery();
+            if(rsdados.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar verificação de CPF = " + erro);
+        }
+        return false;
     }
 
     public boolean consultarCountCliente() {
@@ -203,6 +221,10 @@ public class ClienteDAO extends DAO{
         }
         if(getCliente().getSobrenome().isBlank() || getCliente().getSobrenome().length() > 60){
             JOptionPane.showMessageDialog(null, "Campo do sobrenome está inválido!\nPor favor, verifique o campo sobrenome", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(verificarCPF()){
+            JOptionPane.showMessageDialog(null, "CPF digitado já está cadastrado!\nPor favor, preencha o campo com um CPF valido", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;

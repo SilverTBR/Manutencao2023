@@ -6,7 +6,7 @@ create table if not exists cliente(
 id_cliente SERIAL primary key,
 nome varchar(45) not null,
 sobrenome varchar(60) not null,
-CPF varchar(14) not null,
+CPF varchar(14) not null UNIQUE,
 estado char(2) not null,
 cidade varchar(50) not null,
 bairro varchar (50) not null,
