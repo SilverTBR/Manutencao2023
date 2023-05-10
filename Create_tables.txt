@@ -1,6 +1,7 @@
-drop table if exists emprestimo;
+drop table if exists aluguel;
 drop table if exists cliente;
 drop table if exists livro;
+drop table if exists administradores;
 
 create table if not exists cliente(
 id_cliente SERIAL primary key,
@@ -10,7 +11,8 @@ CPF varchar(14) not null UNIQUE,
 estado char(2) not null,
 cidade varchar(50) not null,
 bairro varchar (50) not null,
-endereco varchar(75) not null
+endereco varchar(75) not null,
+contato BIGINT not null
 );
 
 create table if not exists livro(
@@ -41,3 +43,12 @@ CONSTRAINT fk_id_livro
     ON DELETE NO ACTION
     ON UPDATE NO ACTION 
 );
+
+CREATE TABLE administradores(
+  login VARCHAR(50) PRIMARY KEY,
+  senha VARCHAR(50)
+);
+
+-- Sem criptografia, o sistema é para um ambiente simples.
+INSERT INTO 
+administradores (login, senha) VALUES ('admin', 'admin')
