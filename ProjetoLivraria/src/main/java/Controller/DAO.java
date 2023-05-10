@@ -15,7 +15,10 @@ public abstract class DAO {
     private static File caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
     public static final String pasta_relatorios = System.getProperty("user.dir") + "/src/relatorios/";
    
-   
+   public void setCaminhoTeste(){
+       caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
+   } 
+      
     public boolean conectarcomBD() {
             try {
                 JDBCUtil.init(caminho);

@@ -14,7 +14,9 @@ public class Cliente {
      * @param Bairro Nome bairro do cliente
      * @param Endereço Endereço do cliente
      * @param Cidade Nome da cidade do cliente
+     * @param Contato telefone de contato do cliente
      */
+    
     protected int idCliente;
     protected String Nome;
     protected String Sobrenome;
@@ -23,8 +25,9 @@ public class Cliente {
     protected String Bairro;
     protected String Endereco;
     protected String Cidade;
+    protected long Contato;
 
-    public Cliente(int idCliente, String Nome, String Sobrenome, String CPF, String Estado, String Cidade, String Bairro, String Endereco) {
+    public Cliente(int idCliente, String Nome, String Sobrenome, String CPF, String Estado, String Cidade, String Bairro, String Endereco, long Contato) {
         this.idCliente = idCliente;
         this.Nome = Nome;
         this.Sobrenome = Sobrenome;
@@ -33,6 +36,7 @@ public class Cliente {
         this.Bairro = Bairro;
         this.Endereco = Endereco;
         this.Cidade = Cidade;
+        this.Contato = Contato;
     }
     public Cliente() {
         
@@ -100,6 +104,14 @@ public class Cliente {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+    
+    public long getContato() {
+        return Contato;
+    }
+
+    public void setContato(long Contato) {
+        this.Contato = Contato;
     }
 
 }

@@ -58,6 +58,8 @@ public class JFCliente extends javax.swing.JFrame {
         jBAluguel = new javax.swing.JButton();
         jLFechar = new javax.swing.JLabel();
         jCEstados = new javax.swing.JComboBox<>();
+        jTcontato = new javax.swing.JTextField();
+        jLNomeAba8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -166,7 +168,7 @@ public class JFCliente extends javax.swing.JFrame {
         });
 
         jLNomeAba7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLNomeAba7.setText("Endereço");
+        jLNomeAba7.setText("Endereço:");
 
         jTBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -278,6 +280,11 @@ public class JFCliente extends javax.swing.JFrame {
             }
         });
 
+        jTcontato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLNomeAba8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLNomeAba8.setText("Telefone de contato:");
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -294,16 +301,16 @@ public class JFCliente extends javax.swing.JFrame {
                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                 .addGap(26, 26, 26)
-                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLNome, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLTituloCad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTNome)
-                                        .addComponent(jLSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTSobrenome)
-                                        .addComponent(jLCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jBEnviar))
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLNome, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLTituloCad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTNome)
+                                    .addComponent(jLSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTSobrenome)
+                                    .addComponent(jLCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(jTcontato, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLNomeAba8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
@@ -320,7 +327,10 @@ public class JFCliente extends javax.swing.JFrame {
                                     .addComponent(jCEstados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                 .addGap(312, 312, 312)
-                                .addComponent(jLFechar)))
+                                .addComponent(jLFechar))
+                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(jBEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         JBackgroundLayout.setVerticalGroup(
@@ -356,18 +366,23 @@ public class JFCliente extends javax.swing.JFrame {
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLNomeAba6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLNomeAba7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBEnviar)))
+                        .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLCPF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JBackgroundLayout.createSequentialGroup()
+                        .addComponent(jLNomeAba7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTcontato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLNomeAba8))
+                .addGap(33, 33, 33)
+                .addComponent(jBEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -446,6 +461,7 @@ public class JFCliente extends javax.swing.JFrame {
         jCEstados.setSelectedIndex(0);
         jTNome.setText("");
         jTSobrenome.setText("");
+        jTcontato.setText("");
     }
       
     public void enviarCliente(){
@@ -456,6 +472,7 @@ public class JFCliente extends javax.swing.JFrame {
         controle.getCliente().setCidade(jTCidade.getText());
         controle.getCliente().setCPF(jTCPF.getText());
         controle.getCliente().setBairro(jTBairro.getText());
+        controle.getCliente().setContato(Long.parseLong(jTcontato.getText()));
     }
     
     
@@ -545,6 +562,7 @@ public class JFCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLNomeAba;
     private javax.swing.JLabel jLNomeAba6;
     private javax.swing.JLabel jLNomeAba7;
+    private javax.swing.JLabel jLNomeAba8;
     private javax.swing.JLabel jLSobrenome;
     private javax.swing.JLabel jLTituloCad;
     private javax.swing.JLabel jLabel1;
@@ -557,5 +575,6 @@ public class JFCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTEndereco;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTextField jTSobrenome;
+    private javax.swing.JTextField jTcontato;
     // End of variables declaration//GEN-END:variables
 }

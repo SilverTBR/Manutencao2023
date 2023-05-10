@@ -21,7 +21,7 @@ public class AluguelDAO extends DAO{
 
     
     private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao, devolucao) VALUES (?, ?, ?, ?, false)";
-    private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
+    private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, contato, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome, cliente.contato order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' and cliente.nome ilike ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
@@ -152,7 +152,6 @@ public class AluguelDAO extends DAO{
         int qntCol = rsdados.getMetaData().getColumnCount();
         for(int col = 1; col<= qntCol; col++){
             modeloJT.addColumn(rsdados.getMetaData().getColumnLabel(col));
-
         }
 
             while(rsdados != null && rsdados.next()){
@@ -161,12 +160,11 @@ public class AluguelDAO extends DAO{
                 modeloJT.setValueAt(rsdados.getInt("id_cliente"), linha, 1);
                 modeloJT.setValueAt(rsdados.getString("nome"), linha, 2);
                 modeloJT.setValueAt(rsdados.getString("sobrenome"), linha, 3);
-                modeloJT.setValueAt(rsdados.getInt("id_livro"), linha, 4);
-                modeloJT.setValueAt(rsdados.getString("titulo"), linha, 5);
-                modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 6);
-                modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 7);
-               
-
+                modeloJT.setValueAt(rsdados.getString("contato"), linha, 4);
+                modeloJT.setValueAt(rsdados.getInt("id_livro"), linha, 5);
+                modeloJT.setValueAt(rsdados.getString("titulo"), linha, 6);
+                modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 7);
+                modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 8);
                 linha++;
             }
         } catch (SQLException erro) {
