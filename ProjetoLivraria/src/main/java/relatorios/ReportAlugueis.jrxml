@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportClientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7abf5eb7-5314-4ef1-9e5a-65444d42b964">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conector PostgreSQL"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+id_aluguel, 
+aluguel.id_cliente, 
+nome, sobrenome,
+contato, 
+livro.id_livro, 
+titulo, 
+data_aluguel, 
+data_devolucao 
+FROM aluguel, 
+cliente, 
+livro 
+where aluguel.id_cliente = cliente.id_cliente 
+and aluguel.id_livro = livro.id_livro
+and devolucao = 'false' 
+group by aluguel.id_aluguel, 
+aluguel.id_cliente, 
+livro.id_livro,
+cliente.nome, 
+cliente.sobrenome, 
+cliente.contato order by aluguel.id_aluguel, 
+aluguel.id_cliente asc]]>
+	</queryString>
+	<field name="id_aluguel" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_aluguel"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_aluguel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluguel"/>
+	</field>
+	<field name="id_cliente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluguel"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+	</field>
+	<field name="sobrenome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sobrenome"/>
+		<property name="com.jaspersoft.studio.field.label" value="sobrenome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+	</field>
+	<field name="contato" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="contato"/>
+		<property name="com.jaspersoft.studio.field.label" value="contato"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+	</field>
+	<field name="id_livro" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_livro"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_livro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="livro"/>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="titulo"/>
+		<property name="com.jaspersoft.studio.field.label" value="titulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="livro"/>
+	</field>
+	<field name="data_aluguel" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="data_aluguel"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_aluguel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluguel"/>
+	</field>
+	<field name="data_devolucao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="data_devolucao"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_devolucao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluguel"/>
+	</field>
+	<variable name="TotalEmp" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{id_aluguel}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<group name="Group1">
+		<groupHeader>
+			<band height="77">
+				<staticText>
+					<reportElement x="4" y="57" width="20" height="18" uuid="db5fc104-feca-4350-bf86-fc244a730657"/>
+					<textElement>
+						<font fontName="Arial" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ID]]></text>
+				</staticText>
+				<line>
+					<reportElement x="-20" y="75" width="596" height="1" uuid="4ce6287c-d339-4369-a9b7-4db1754a5406"/>
+				</line>
+				<staticText>
+					<reportElement x="45" y="57" width="100" height="18" uuid="bd5670d1-1ee0-46b7-9da9-37b819efd439"/>
+					<textElement>
+						<font fontName="Arial" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Titulo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="265" y="53" width="130" height="21" uuid="4b175dea-1147-4ddf-b092-afb198151c14"/>
+					<textElement>
+						<font fontName="Arial" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data de aluguel]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="405" y="56" width="150" height="18" uuid="30936f17-9333-479f-9f33-14822019aa87"/>
+					<textElement>
+						<font fontName="Arial" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data de devolução]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="155" y="55" width="100" height="21" uuid="e7f6e6dc-8a74-4a9b-955b-2be8fe95e13a"/>
+					<textElement>
+						<font fontName="Arial" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="41"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="0" width="595" height="83" backcolor="#CAE4DB" uuid="8656a2ea-0827-44bb-a29a-e019a15d00ba"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="118" y="23" width="320" height="37" uuid="2a583b6b-6529-47f3-8b36-f7f1d5b98a36"/>
+				<textElement>
+					<font fontName="Arial" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALUGUEIS REALIZADOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="7" width="24" height="18" uuid="c8bdd9e8-fc15-45ee-8cd5-e7fcce505928"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_aluguel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="7" width="100" height="19" uuid="60a60355-de06-4d37-980c-d327383e8f1c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="5" width="119" height="19" uuid="0c63a2d4-4a23-451c-aa26-36108eedee85"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_devolucao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="35" y="0" width="1" height="31" uuid="c676ba86-9437-48aa-946a-2df91da15a28"/>
+			</line>
+			<line>
+				<reportElement x="259" y="0" width="1" height="31" uuid="f0f67c67-52ce-49a9-8f17-84c26561d6e7"/>
+			</line>
+			<textField>
+				<reportElement x="155" y="5" width="100" height="18" uuid="86751fdc-1c60-4cea-87df-844da919b12a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}+ " "+$F{sobrenome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="5" width="130" height="18" uuid="2c4ffad7-9a9d-42af-bafc-1401c388b15c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_aluguel}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="401" y="0" width="1" height="31" uuid="3ebf995c-d118-4cf5-a152-5d6d91034703"/>
+			</line>
+			<line>
+				<reportElement x="148" y="-1" width="1" height="31" uuid="c943cf87-6089-4458-9401-d71ec26e222b"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="481" y="12" width="50" height="16" uuid="de4f70be-846a-4000-9c7a-facb858ab59c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="520" y="14" width="40" height="12" uuid="3acb00a2-dbe5-46c9-bd96-587dd9781f14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-20" y="11" width="596" height="1" uuid="35258f03-d994-4113-8e92-c3669898b285"/>
+			</line>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="52">
+			<line>
+				<reportElement x="-20" y="30" width="596" height="1" uuid="350a3a35-0352-4925-afae-bda5533bc7ce"/>
+			</line>
+			<staticText>
+				<reportElement x="481" y="31" width="50" height="16" uuid="7bbe4cd5-4a0a-443a-85fd-f1cc538636b2"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="520" y="33" width="40" height="12" uuid="cdef6b8b-c36b-44a8-a250-e505c76d13a1"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="179" height="18" uuid="e1b52764-6b7d-4972-98c1-32ee9b83dd7f"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE EMPRESTIMOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="33" width="140" height="12" uuid="bf7b890f-9c04-4fef-8654-f32589b23a2f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="179" y="0" width="100" height="13" uuid="f860c7c6-77e6-4022-839d-72e1f794a420"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalEmp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

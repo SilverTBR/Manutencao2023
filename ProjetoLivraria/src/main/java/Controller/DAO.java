@@ -13,7 +13,7 @@ public abstract class DAO {
     protected Connection connection = null;
     private static final String origem = System.getProperty("user.dir");
     private static File caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
-    public static final String pasta_relatorios = System.getProperty("user.dir") + "/src/relatorios/";
+    public static final String pasta_relatorios = System.getProperty("user.dir") + "/src/main/java/relatorios/";
    
    public void setCaminhoTeste(){
        caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
