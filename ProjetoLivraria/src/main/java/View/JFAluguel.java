@@ -5,6 +5,7 @@
 package View;
 
 import Controller.AluguelDAO;
+import Controller.RelatorioEmprestimo;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.time.format.DateTimeFormatter;  
@@ -17,6 +18,7 @@ public final class JFAluguel extends javax.swing.JFrame {
     protected AluguelDAO controle = new AluguelDAO();
     protected boolean selec = false;
     protected JFRenovar renovacao = new JFRenovar();
+    protected RelatorioEmprestimo RE = null;
 
     public JFAluguel() {
         initComponents();
@@ -48,7 +50,6 @@ public final class JFAluguel extends javax.swing.JFrame {
         JPBarrinha = new javax.swing.JPanel();
         jBLivros = new javax.swing.JButton();
         jBClientes = new javax.swing.JButton();
-        jBLivros1 = new javax.swing.JButton();
         jTDataAluguel = new javax.swing.JFormattedTextField();
         jTDataDev = new javax.swing.JFormattedTextField();
         jLDataDev = new javax.swing.JLabel();
@@ -78,6 +79,7 @@ public final class JFAluguel extends javax.swing.JFrame {
         jLFechar = new javax.swing.JLabel();
         jBDevolucao = new javax.swing.JButton();
         jBRenovar = new javax.swing.JButton();
+        jBLivros1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -199,20 +201,6 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
-        jBLivros1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jBLivros1.setText("Gerar Relatório");
-        jBLivros1.setPreferredSize(new java.awt.Dimension(87, 23));
-        jBLivros1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBLivros1MouseClicked(evt);
-            }
-        });
-        jBLivros1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLivros1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -228,8 +216,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBLivros1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jBLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
@@ -243,9 +230,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                 .addComponent(jBLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBClientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBLivros1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
 
         try {
@@ -447,6 +432,20 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBLivros1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBLivros1.setText("Gerar Relatório");
+        jBLivros1.setPreferredSize(new java.awt.Dimension(87, 23));
+        jBLivros1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBLivros1MouseClicked(evt);
+            }
+        });
+        jBLivros1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLivros1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -519,7 +518,9 @@ public final class JFAluguel extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jBDevolucao)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jBRenovar))
+                                            .addComponent(jBRenovar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBLivros1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addComponent(JPTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -539,7 +540,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
-                        .addGap(0, 19, Short.MAX_VALUE)
+                        .addGap(0, 18, Short.MAX_VALUE)
                         .addComponent(jLTituloCad1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLBusca)
@@ -550,7 +551,8 @@ public final class JFAluguel extends javax.swing.JFrame {
                             .addComponent(jBBusca)
                             .addComponent(jBResetar)
                             .addComponent(jBDevolucao)
-                            .addComponent(jBRenovar))
+                            .addComponent(jBRenovar)
+                            .addComponent(jBLivros1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JBackgroundLayout.createSequentialGroup()
@@ -615,7 +617,7 @@ public final class JFAluguel extends javax.swing.JFrame {
     private void jBEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEnviarMouseClicked
         if(verificarSelecao()){
             enviarAluguel();
-            if(controle.inserir()){
+            if(controle.inserirAluguel()){
                 limparCampos();            
                 jTClientes.setModel(controle.getClienteModel("%%"));
                 jTLivros.setModel(controle.getLivroModel("%%"));
@@ -719,7 +721,8 @@ public final class JFAluguel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBDevolucaoActionPerformed
 
     private void jBLivros1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivros1MouseClicked
-        // TODO add your handling code here:
+        RE = new RelatorioEmprestimo();
+        RE.geraRelatorio();
     }//GEN-LAST:event_jBLivros1MouseClicked
 
     private void jBLivros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLivros1ActionPerformed
@@ -727,8 +730,8 @@ public final class JFAluguel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLivros1ActionPerformed
 
     public void atualizarTabelaTudo(){
-        controle.consultarTodosAluguel();
-        jTResult.setModel(controle.AluguelgerarTabela());
+        controle.consultarTodosAlugueis();
+        jTResult.setModel(controle.GerarTabelaSimples());
     }
         
     public void pesquisarGerarTabela(){

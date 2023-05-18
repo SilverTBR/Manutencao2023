@@ -358,7 +358,7 @@ public class JFLivro extends javax.swing.JFrame {
     private void jBEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEnviarMouseClicked
      
             enviarLivro();
-            if(controle.inserir()){
+            if(controle.inserirLivros()){
                 limparCampos();
             }
         

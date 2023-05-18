@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class AluguelDAO extends DAO{
+public class AluguelDAO extends TemplateDAO{
     
     ClienteDAO controleCliente = new ClienteDAO();
     LivroDAO controleLivro = new LivroDAO();
@@ -31,62 +31,49 @@ public class AluguelDAO extends DAO{
         return Aluguel;
     }
     
-    public ResultSet getrsdados(){
-        return rsdados;
-    }
-    
     public void chamarRelatorio(boolean visu){
         controleRelatorio = new RelatorioEmprestimo();
-        controleRelatorio.geraRelatorio(visu);
+        controleRelatorio.geraRelatorio();
     }
     
-    public boolean inserir() {
-        if(verificarCampos()){
-            try {
-                int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-                int concorrencia = ResultSet.CONCUR_UPDATABLE;
-                pstdados = connection.prepareStatement(inserirAluguel, tipo, concorrencia);
-                pstdados.setInt(1, Aluguel.getIdCliente());
-                pstdados.setInt(2, Aluguel.getIdLivro());
-                pstdados.setString(3, Aluguel.getDataAluguel());
-                pstdados.setString(4, Aluguel.getDataDev());
-                int resposta = pstdados.executeUpdate();
-                pstdados.close();
-                if (resposta == 1) {
-                    connection.commit();
-                    return true;
-                } else {
-                    connection.rollback();
-                    return false;
-                }
-            } catch (SQLException erro) {
-                System.out.println("Erro ao inserir: " + erro);
-            }
-        }
-        return false;
+    @Override
+    protected void setDados(PreparedStatement pstdados) throws SQLException{
+        pstdados.setInt(1, Aluguel.getIdCliente());
+        pstdados.setInt(2, Aluguel.getIdLivro());
+        pstdados.setString(3, Aluguel.getDataAluguel());
+        pstdados.setString(4, Aluguel.getDataDev());
     }
     
-      public boolean excluir() {
+    public boolean inserirAluguel() {
+        return inserirDados(inserirAluguel);
+    }
+    
+    public boolean excluiraluguel() {
+        return inserirDados(excluirTudo);
+    }
+
+    public boolean consultarTodosAlugueis() {
+        return consultarTodosDados(consultarAluguel);
+    }
+        
+    public boolean consultarCountAluguel() {
+        return consultarCountDados(consultarCount);
+    }
+    
+    public boolean pesquisarAluguel(String busca) {
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(excluirTudo, tipo, concorrencia);
-            int resposta = pstdados.executeUpdate(); 
-            pstdados.close();
-            
-            if (resposta >= 1) {
-                connection.commit();
-                return true;
-            } else {
-                connection.rollback();
-                return false;
-            }
+            pstdados = connection.prepareStatement(buscarAluguel, tipo, concorrencia);
+            pstdados.setString(1, busca);
+            rsdados = pstdados.executeQuery();
+            return true;
         } catch (SQLException erro) {
-            System.out.println("Erro na execução da exclusão: " + erro);
+            System.out.println("Erro ao executar pesquisa: " + erro);
         }
         return false;
-    }
-      
+    } 
+    
     public boolean devolucaoAluguel(int id) {
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
@@ -108,38 +95,9 @@ public class AluguelDAO extends DAO{
         }
         return false;
     }
-      
-      
-      
-    public boolean consultarTodosAluguel() {
-        try {
-            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-            int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(consultarAluguel, tipo, concorrencia);
-            rsdados = pstdados.executeQuery();
-            return true;
-        } catch (SQLException erro) {
-            System.out.println("Erro ao executar consulta = " + erro);
-        }
-        return false;
-    }
-        
-    public boolean consultarCount() {
-            try {
-                int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-                int concorrencia = ResultSet.CONCUR_UPDATABLE;
-                pstdados = connection.prepareStatement(consultarCount, tipo, concorrencia);
-                rsdados = pstdados.executeQuery();
-                rsdados.next();
-                return true;
-            } catch (SQLException erro) {
-                System.out.println("Erro ao executar consulta: " + erro);
-            }
-            return false;
-    }
     
-    
-    public TableModel AluguelgerarTabela(){
+    @Override
+    public TableModel GerarTabelaSimples(){
         int linha = 0;
         DefaultTableModel modeloJT = new DefaultTableModel(){
             @Override
@@ -149,22 +107,22 @@ public class AluguelDAO extends DAO{
         };
         try {
             
-        int qntCol = rsdados.getMetaData().getColumnCount();
+        int qntCol = getrsdados().getMetaData().getColumnCount();
         for(int col = 1; col<= qntCol; col++){
-            modeloJT.addColumn(rsdados.getMetaData().getColumnLabel(col));
+            modeloJT.addColumn(getrsdados().getMetaData().getColumnLabel(col));
         }
 
-            while(rsdados != null && rsdados.next()){
+            while(getrsdados() != null && getrsdados().next()){
                 modeloJT.addRow(new Object[0]);
-                modeloJT.setValueAt(rsdados.getInt("id_aluguel"), linha, 0);
-                modeloJT.setValueAt(rsdados.getInt("id_cliente"), linha, 1);
-                modeloJT.setValueAt(rsdados.getString("nome"), linha, 2);
-                modeloJT.setValueAt(rsdados.getString("sobrenome"), linha, 3);
-                modeloJT.setValueAt(rsdados.getString("contato"), linha, 4);
-                modeloJT.setValueAt(rsdados.getInt("id_livro"), linha, 5);
-                modeloJT.setValueAt(rsdados.getString("titulo"), linha, 6);
-                modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 7);
-                modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 8);
+                modeloJT.setValueAt(getrsdados().getInt("id_aluguel"), linha, 0);
+                modeloJT.setValueAt(getrsdados().getInt("id_cliente"), linha, 1);
+                modeloJT.setValueAt(getrsdados().getString("nome"), linha, 2);
+                modeloJT.setValueAt(getrsdados().getString("sobrenome"), linha, 3);
+                modeloJT.setValueAt(getrsdados().getString("contato"), linha, 4);
+                modeloJT.setValueAt(getrsdados().getInt("id_livro"), linha, 5);
+                modeloJT.setValueAt(getrsdados().getString("titulo"), linha, 6);
+                modeloJT.setValueAt(getrsdados().getString("data_aluguel"), linha, 7);
+                modeloJT.setValueAt(getrsdados().getString("data_devolucao"), linha, 8);
                 linha++;
             }
         } catch (SQLException erro) {
@@ -186,21 +144,8 @@ public class AluguelDAO extends DAO{
         controleLivro.desconectar();
         return res;
     }
-                
-    public boolean pesquisarAluguel(String busca) {
-        try {
-            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-            int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(buscarAluguel, tipo, concorrencia);
-            pstdados.setString(1, busca);
-            rsdados = pstdados.executeQuery();
-            return true;
-        } catch (SQLException erro) {
-            System.out.println("Erro ao executar pesquisa: " + erro);
-        }
-        return false;
-    }
-    
+                    
+     @Override
      public boolean verificarCampos(){
         if(Aluguel.getDataDev().replaceAll("\\s+","").length() != 10){
             JOptionPane.showMessageDialog(null, "Campo da data de devolução está invalido!\n"
@@ -209,29 +154,32 @@ public class AluguelDAO extends DAO{
         }
         return true;
     }   
-    
-
-    
+      
     public TableModel getPesquisaModel(String busca){
         conectarcomBD();
         pesquisarAluguel(busca);
         controleLivro.desconectar();
-        return AluguelgerarTabela();
+        return GerarTabelaSimples();
     }   
     
     public TableModel getLivroModel(String busca){
         controleLivro.conectarcomBD();
-        controleLivro.ConsultarSimples(busca);
+        controleLivro.ConsultarSimplesLivro(busca);
         controleLivro.desconectar();
-        return controleLivro.gerarTabelaSimples();
+        return controleLivro.GerarTabelaSimples();
     }
 
     public TableModel getClienteModel(String busca){
         controleCliente.conectarcomBD();
         controleCliente.consultarSimplesCliente(busca);
         controleCliente.desconectar();
-        return controleCliente.GerarTabelaSimplesCliente();
+        return controleCliente.GerarTabelaSimples();
     }
+
+    @Override
+    protected void zerarCampos(){}
+
+
     
 
     

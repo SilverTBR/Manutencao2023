@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Controller.ControleLogin;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;

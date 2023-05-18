@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package configs;
 
+import configs.JDBCUtil;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
@@ -12,11 +13,11 @@ import java.sql.*;
 public abstract class DAO {
     protected Connection connection = null;
     private static final String origem = System.getProperty("user.dir");
-    private static File caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
-    public static final String pasta_relatorios = System.getProperty("user.dir") + "/src/relatorios/";
+    private static File caminho = new File(origem + "/src/main/java/configs/configuracaobd.properties");
+    public static final String pasta_relatorios = System.getProperty("user.dir") + "/src/main/java/relatorios/";
    
    public void setCaminhoTeste(){
-       caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
+       caminho = new File(origem + "/src/main/java/configs/configuracaobd.properties");
    } 
       
     public boolean conectarcomBD() {

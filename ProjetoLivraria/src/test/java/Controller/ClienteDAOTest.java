@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Controller.AluguelDAO;
+import Controller.ClienteDAO;
 import Model.Cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ public class ClienteDAOTest {
         controle.setCaminhoTeste();
         controle.conectarcomBD();
         aluguel.conectarcomBD();
-        aluguel.excluir();
+        aluguel.excluiraluguel();
         controle.excluircliente();
     }
     public ClienteDAO criaClienteGenerico(){               

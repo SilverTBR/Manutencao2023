@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import configs.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
