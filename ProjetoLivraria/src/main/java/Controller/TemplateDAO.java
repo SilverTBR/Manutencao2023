@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
 /**
@@ -60,6 +61,7 @@ public abstract class TemplateDAO extends DAO{
                     return true;
                 } else {
                     connection.rollback();
+                                JOptionPane.showMessageDialog(null,"Limites de alugueis pelo cliente excedido","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 

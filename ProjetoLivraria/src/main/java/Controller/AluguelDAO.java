@@ -20,7 +20,7 @@ public class AluguelDAO extends TemplateDAO{
     RelatorioEmprestimo controleRelatorio = null;
 
     
-    private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao, devolucao) VALUES (?, ?, ?, ?, false)";
+    private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao, devolucao) SELECT ?, ?, ?, ?, false WHERE (SELECT COUNT(id_cliente) FROM aluguel WHERE id_cliente = ? and devolucao = false) < 3;;";
     private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, contato, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome, cliente.contato order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' and cliente.nome ilike ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String excluirTudo = "delete from aluguel";
@@ -42,6 +42,7 @@ public class AluguelDAO extends TemplateDAO{
         pstdados.setInt(2, Aluguel.getIdLivro());
         pstdados.setString(3, Aluguel.getDataAluguel());
         pstdados.setString(4, Aluguel.getDataDev());
+        pstdados.setInt(5, Aluguel.getIdCliente());
     }
     
     public boolean inserirAluguel() {
@@ -158,6 +159,7 @@ public class AluguelDAO extends TemplateDAO{
     public TableModel getPesquisaModel(String busca){
         conectarcomBD();
         pesquisarAluguel(busca);
+        System.out.print(rsdados);
         controleLivro.desconectar();
         return GerarTabelaSimples();
     }   
