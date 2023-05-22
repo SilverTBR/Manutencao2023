@@ -6,8 +6,11 @@ package View;
 
 import Controller.ClienteDAO;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -16,12 +19,37 @@ public class JFCliente extends javax.swing.JFrame {
 
     protected ClienteDAO controle = new ClienteDAO();
     protected boolean selec = false;
+    int cor = 0;
 
     public JFCliente() {
         initComponents();
         controle.conectarcomBD();
 
     }
+    
+    public JFCliente(int cor) {
+        initComponents();
+        controle.conectarcomBD();
+        this.cor = cor;
+        if(cor == 1){
+            jLNomeAba.setForeground(Color.WHITE);
+            jLFechar.setForeground(Color.WHITE);
+            jPBarrinhaAba.setBackground(Color.WHITE);
+            JPTitulo.setBackground(Color.decode("#00303F"));
+            JBackground.setBackground(Color.decode("#292929"));
+            for (Component component : JBackground.getComponents()) {
+                if(component instanceof JLabel){
+                    JLabel label = (JLabel) component;
+                    label.setForeground(Color.WHITE);
+                }else if(component instanceof JButton){
+                    JButton botao = (JButton) component;
+                    botao.setBackground(Color.decode("#00303F"));
+                    botao.setForeground(Color.WHITE);
+                }
+            } 
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,13 +103,14 @@ public class JFCliente extends javax.swing.JFrame {
         jLNomeAba.setText("CLIENTES");
 
         jPBarrinhaAba.setBackground(new java.awt.Color(0, 0, 0));
+        jPBarrinhaAba.setMaximumSize(new java.awt.Dimension(20000, 32767));
         jPBarrinhaAba.setPreferredSize(new java.awt.Dimension(0, 3));
 
         javax.swing.GroupLayout jPBarrinhaAbaLayout = new javax.swing.GroupLayout(jPBarrinhaAba);
         jPBarrinhaAba.setLayout(jPBarrinhaAbaLayout);
         jPBarrinhaAbaLayout.setHorizontalGroup(
             jPBarrinhaAbaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 290, Short.MAX_VALUE)
         );
         jPBarrinhaAbaLayout.setVerticalGroup(
             jPBarrinhaAbaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +127,7 @@ public class JFCliente extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPBarrinhaAba, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jPBarrinhaAba, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLNomeAba, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -416,7 +445,7 @@ public class JFCliente extends javax.swing.JFrame {
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
         controle.desconectar();
-        JFLivro jfl = new JFLivro();
+        JFLivro jfl = new JFLivro(cor);
         jfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBLivrosMouseClicked
@@ -436,7 +465,7 @@ public class JFCliente extends javax.swing.JFrame {
 
     private void jBAluguelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAluguelMouseClicked
         controle.desconectar();
-        JFAluguel jfa = new JFAluguel();
+        JFAluguel jfa = new JFAluguel(cor);
         jfa.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBAluguelMouseClicked

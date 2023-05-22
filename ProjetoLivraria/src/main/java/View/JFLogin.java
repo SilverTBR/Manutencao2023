@@ -197,7 +197,7 @@ public class JFLogin extends javax.swing.JFrame {
         
         if(foi == true){
             control.desconectar();
-            JFAluguel jfa = new JFAluguel();
+            JFAluguel jfa = new JFAluguel(0);
             jfa.setVisible(true);
             dispose();
         }else{

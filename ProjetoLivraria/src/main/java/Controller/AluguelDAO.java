@@ -22,7 +22,7 @@ public class AluguelDAO extends TemplateDAO{
     
     private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao, devolucao) SELECT ?, ?, ?, ?, false WHERE (SELECT COUNT(id_cliente) FROM aluguel WHERE id_cliente = ? and devolucao = false) < 3;;";
     private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, contato, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome, cliente.contato order by aluguel.id_aluguel, aluguel.id_cliente asc";
-    private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' and cliente.nome ilike ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
+    private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, contato, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' and cliente.nome ilike ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome, cliente.contato order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
     private static final String devolucaoAluguel = "UPDATE aluguel SET devolucao = 'true' WHERE id_aluguel = ?";
@@ -35,6 +35,7 @@ public class AluguelDAO extends TemplateDAO{
         controleRelatorio = new RelatorioEmprestimo();
         controleRelatorio.geraRelatorio();
     }
+
     
     @Override
     protected void setDados(PreparedStatement pstdados) throws SQLException{
@@ -62,17 +63,7 @@ public class AluguelDAO extends TemplateDAO{
     }
     
     public boolean pesquisarAluguel(String busca) {
-        try {
-            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-            int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(buscarAluguel, tipo, concorrencia);
-            pstdados.setString(1, busca);
-            rsdados = pstdados.executeQuery();
-            return true;
-        } catch (SQLException erro) {
-            System.out.println("Erro ao executar pesquisa: " + erro);
-        }
-        return false;
+            return pesquisar(busca, buscarAluguel);
     } 
     
     public boolean devolucaoAluguel(int id) {
@@ -159,7 +150,6 @@ public class AluguelDAO extends TemplateDAO{
     public TableModel getPesquisaModel(String busca){
         conectarcomBD();
         pesquisarAluguel(busca);
-        System.out.print(rsdados);
         controleLivro.desconectar();
         return GerarTabelaSimples();
     }   

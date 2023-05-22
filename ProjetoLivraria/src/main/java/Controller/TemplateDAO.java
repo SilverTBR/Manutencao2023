@@ -169,5 +169,19 @@ public abstract class TemplateDAO extends DAO{
         return false;
     }
     
+        public boolean pesquisar(String busca, String pesquisa) {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(pesquisa, tipo, concorrencia);
+            pstdados.setString(1, busca);
+            rsdados = pstdados.executeQuery();
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar pesquisa: " + erro);
+        }
+        return false;
+    } 
+    
     
 }

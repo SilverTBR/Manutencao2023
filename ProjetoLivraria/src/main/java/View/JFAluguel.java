@@ -7,10 +7,15 @@ package View;
 import Controller.AluguelDAO;
 import Controller.RelatorioEmprestimo;
 import java.awt.Color;
+import java.awt.Component;
 import javax.swing.UIManager;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 
 public final class JFAluguel extends javax.swing.JFrame {
@@ -19,14 +24,23 @@ public final class JFAluguel extends javax.swing.JFrame {
     protected boolean selec = false;
     protected JFRenovar renovacao = new JFRenovar();
     protected RelatorioEmprestimo RE = null;
+    int cor = 0;
 
-    public JFAluguel() {
+    
+    public JFAluguel(int cor) {
         initComponents();
         controle.conectarcomBD();
         atualizarTabelaTudo();
         getAtualData();
         jTClientes.setModel(controle.getClienteModel("%%"));
         jTLivros.setModel(controle.getLivroModel("%%"));
+        if(cor == 0){
+            corPadrao();
+        }else{
+            corNoturno();
+            noturno.setSelected(true);
+            this.cor = 1;
+        }
     }
 
     /**
@@ -80,6 +94,7 @@ public final class JFAluguel extends javax.swing.JFrame {
         jBDevolucao = new javax.swing.JButton();
         jBRenovar = new javax.swing.JButton();
         jBLivros1 = new javax.swing.JButton();
+        noturno = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -128,7 +143,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLNomeAba)
                 .addGap(3, 3, 3)
-                .addComponent(jPBarrinhaAba, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPBarrinhaAba, javax.swing.GroupLayout.DEFAULT_SIZE, 2, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -152,6 +167,7 @@ public final class JFAluguel extends javax.swing.JFrame {
         jLTituloCad.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLTituloCad.setText("ALUGAR");
 
+        jBEnviar.setBackground(new java.awt.Color(204, 204, 204));
         jBEnviar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBEnviar.setText("Enviar");
         jBEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,6 +200,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
+        jBLivros.setBackground(new java.awt.Color(204, 204, 204));
         jBLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBLivros.setText("LIVROS");
         jBLivros.setPreferredSize(new java.awt.Dimension(87, 23));
@@ -193,6 +210,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBClientes.setBackground(new java.awt.Color(204, 204, 204));
         jBClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBClientes.setText("CLIENTES");
         jBClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,6 +312,7 @@ public final class JFAluguel extends javax.swing.JFrame {
 
         jTBusca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jBBusca.setBackground(new java.awt.Color(204, 204, 204));
         jBBusca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBBusca.setText("Buscar");
         jBBusca.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -307,6 +326,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBResetar.setBackground(new java.awt.Color(204, 204, 204));
         jBResetar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBResetar.setText("Resetar");
         jBResetar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -354,6 +374,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBBuscaClientes.setBackground(new java.awt.Color(204, 204, 204));
         jBBuscaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBBuscaClientes.setText("Buscar");
         jBBuscaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -362,6 +383,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBResetarClientes.setBackground(new java.awt.Color(204, 204, 204));
         jBResetarClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBResetarClientes.setText("Resetar");
         jBResetarClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -380,6 +402,7 @@ public final class JFAluguel extends javax.swing.JFrame {
 
         jTBuscaLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jBBuscaLivros.setBackground(new java.awt.Color(204, 204, 204));
         jBBuscaLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBBuscaLivros.setText("Buscar");
         jBBuscaLivros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -388,6 +411,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBResetarLivros.setBackground(new java.awt.Color(204, 204, 204));
         jBResetarLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBResetarLivros.setText("Resetar");
         jBResetarLivros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -411,6 +435,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBDevolucao.setBackground(new java.awt.Color(204, 204, 204));
         jBDevolucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBDevolucao.setText("Devolução");
         jBDevolucao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -424,6 +449,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBRenovar.setBackground(new java.awt.Color(204, 204, 204));
         jBRenovar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBRenovar.setText("Renovar");
         jBRenovar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -432,6 +458,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBLivros1.setBackground(new java.awt.Color(204, 204, 204));
         jBLivros1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBLivros1.setText("Gerar Relatório");
         jBLivros1.setPreferredSize(new java.awt.Dimension(87, 23));
@@ -446,6 +473,13 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        noturno.setText("Modo Noturno");
+        noturno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noturnoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -453,7 +487,7 @@ public final class JFAluguel extends javax.swing.JFrame {
             .addGroup(JBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,8 +558,10 @@ public final class JFAluguel extends javax.swing.JFrame {
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addComponent(JPTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
+                    .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(noturno, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
                         .addComponent(jLFechar)
                         .addGap(21, 21, 21))))
         );
@@ -533,7 +569,9 @@ public final class JFAluguel extends javax.swing.JFrame {
             JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLFechar)
+                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(noturno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -628,7 +666,7 @@ public final class JFAluguel extends javax.swing.JFrame {
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
         controle.desconectar();
-        JFLivro jfl = new JFLivro();
+        JFLivro jfl = new JFLivro(cor);
         jfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBLivrosMouseClicked
@@ -647,7 +685,7 @@ public final class JFAluguel extends javax.swing.JFrame {
 
     private void jBClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBClientesMouseClicked
         controle.desconectar();
-        JFCliente jfc = new JFCliente();
+        JFCliente jfc = new JFCliente(cor);
         jfc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBClientesMouseClicked
@@ -729,6 +767,17 @@ public final class JFAluguel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBLivros1ActionPerformed
 
+    private void noturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noturnoActionPerformed
+        // TODO add your handling code here:
+        if (noturno.isSelected()) {
+            corNoturno();
+            cor = 1;
+        } else {
+            corPadrao();
+            cor = 0;
+        }
+    }//GEN-LAST:event_noturnoActionPerformed
+
     public void atualizarTabelaTudo(){
         controle.consultarTodosAlugueis();
         jTResult.setModel(controle.GerarTabelaSimples());
@@ -772,6 +821,63 @@ public final class JFAluguel extends javax.swing.JFrame {
             atualizarTabelaTudo();
         }
         });
+    }
+    public void corNoturno(){
+        jBLivros.setBackground(Color.decode("#00303F"));
+        jBClientes.setBackground(Color.decode("#00303F"));
+        jBLivros.setForeground(Color.WHITE);
+        noturno.setForeground(Color.WHITE);
+        jBClientes.setForeground(Color.WHITE);
+        jPanel.setBackground(Color.decode("#00303F"));
+        JBackground.setBackground(Color.decode("#292929"));
+        JPTitulo.setBackground(Color.decode("#00303F"));
+        for (Component component : JBackground.getComponents()) {
+            
+            if(component instanceof JLabel){
+                
+                JLabel label = (JLabel) component;
+                label.setForeground(Color.WHITE);
+                
+            }else if(component instanceof JButton){
+                
+                JButton botao = (JButton) component;
+                botao.setBackground(Color.decode("#00303F"));
+                botao.setForeground(Color.WHITE);
+               
+            }
+        }      
+        //
+        jLNomeAba.setForeground(Color.WHITE);
+        jLFechar.setForeground(Color.WHITE);
+        jPBarrinhaAba.setBackground(Color.WHITE);
+    }
+    
+    public void corPadrao(){
+        
+        jBLivros.setBackground(Color.decode("#CCCCCC"));
+        jBClientes.setBackground(Color.decode("#CCCCCC"));
+        jBLivros.setForeground(Color.BLACK);
+        noturno.setForeground(Color.BLACK);
+        jBClientes.setForeground(Color.BLACK);
+        
+        jPanel.setBackground(Color.decode("#00303F"));
+        JBackground.setBackground(Color.decode("#F5F4F4"));
+        JPTitulo.setBackground(Color.decode("#CAE4DB"));
+        
+        for (Component component : JBackground.getComponents()) {    
+            if(component instanceof JLabel){      
+                JLabel label = (JLabel) component;
+                label.setForeground(Color.BLACK);
+            }else if(component instanceof JButton){
+                
+                JButton botao = (JButton) component;
+                botao.setBackground(Color.decode("#CCCCCC"));
+                botao.setForeground(Color.BLACK);
+            }
+        }      
+        jLNomeAba.setForeground(Color.BLACK);
+        jLFechar.setForeground(Color.BLACK);
+        jPBarrinhaAba.setBackground(Color.BLACK);
     }
     
     /**
@@ -835,7 +941,7 @@ public final class JFAluguel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFAluguel().setVisible(true);
+                new JFAluguel(0).setVisible(true);
             }
         });
     }
@@ -887,5 +993,6 @@ public final class JFAluguel extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jTDataDev;
     private javax.swing.JTable jTLivros;
     private javax.swing.JTable jTResult;
+    private javax.swing.JCheckBox noturno;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,10 @@ package View;
 
 import Controller.LivroDAO;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 
@@ -14,11 +17,34 @@ public class JFLivro extends javax.swing.JFrame {
 
     protected LivroDAO controle = new LivroDAO();
     protected boolean selec = false;
+    int cor = 0;
 
     public JFLivro() {
         initComponents();
         controle.conectarcomBD();
 
+    }
+    public JFLivro(int cor) {
+        initComponents();
+        controle.conectarcomBD();
+        this.cor = cor;
+        if(cor == 1){
+            jLNomeAba.setForeground(Color.WHITE);
+            jLFechar.setForeground(Color.WHITE);
+            jPBarrinhaAba.setBackground(Color.WHITE);
+            JPTitulo.setBackground(Color.decode("#00303F"));
+            JBackground.setBackground(Color.decode("#292929"));
+            for (Component component : JBackground.getComponents()) {
+                if(component instanceof JLabel){
+                    JLabel label = (JLabel) component;
+                    label.setForeground(Color.WHITE);
+                }else if(component instanceof JButton){
+                    JButton botao = (JButton) component;
+                    botao.setBackground(Color.decode("#00303F"));
+                    botao.setForeground(Color.WHITE);
+                }
+            } 
+        }
     }
 
     /**
@@ -366,7 +392,7 @@ public class JFLivro extends javax.swing.JFrame {
 
     private void jBClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBClientesMouseClicked
         controle.desconectar();
-        JFCliente jfc = new JFCliente();
+        JFCliente jfc = new JFCliente(cor);
         jfc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBClientesMouseClicked
@@ -380,7 +406,7 @@ public class JFLivro extends javax.swing.JFrame {
 
     private void jBAluguelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAluguelMouseClicked
         controle.desconectar();
-        JFAluguel jfa = new JFAluguel();
+        JFAluguel jfa = new JFAluguel(cor);
         jfa.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBAluguelMouseClicked
