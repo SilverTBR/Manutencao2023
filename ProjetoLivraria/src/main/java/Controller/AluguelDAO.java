@@ -6,9 +6,13 @@ package Controller;
 
 import Model.Aluguel;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.Date; 
 
 public class AluguelDAO extends TemplateDAO{
     
@@ -18,6 +22,7 @@ public class AluguelDAO extends TemplateDAO{
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
     RelatorioEmprestimo controleRelatorio = null;
+    DateFormat formaData = new SimpleDateFormat("dd/MM/yyyy");
 
     
     private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao, devolucao) SELECT ?, ?, ?, ?, false WHERE (SELECT COUNT(id_cliente) FROM aluguel WHERE id_cliente = ? and devolucao = false) < 3;;";
@@ -26,6 +31,7 @@ public class AluguelDAO extends TemplateDAO{
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
     private static final String devolucaoAluguel = "UPDATE aluguel SET devolucao = 'true' WHERE id_aluguel = ?";
+    private static final String consultarData = "select data_devolucao from aluguel where id_cliente = ? and devolucao = false";
 
     public Aluguel getAluguel(){
         return Aluguel;
@@ -65,6 +71,44 @@ public class AluguelDAO extends TemplateDAO{
     public boolean pesquisarAluguel(String busca) {
             return pesquisar(busca, buscarAluguel);
     } 
+    
+    
+    public boolean buscarData(int idCliente) {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(consultarData, tipo, concorrencia);
+            pstdados.setInt(1, idCliente);
+            rsdados = pstdados.executeQuery();
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar pesquisa: " + erro);
+        }
+        return false;
+    }
+    
+        public boolean verificarData(int idCliente) {
+        buscarData(idCliente);
+        System.out.print(idCliente);
+        try {
+            Date dataAtual = new Date();
+            while(rsdados != null && rsdados.next()){
+            Date dataDev = formaData.parse(rsdados.getString("data_devolucao"));
+            System.out.print(dataDev);
+                if (dataDev.before(dataAtual)) {
+                    JOptionPane.showMessageDialog(null, "Devolução de aluguel atrasado!\nPor favor realize a devolução do aluguel atrasado antes de prosseguir!", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+            return true;
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido: " + e.getMessage());
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao obter dados do banco de dados: " + erro.getMessage());
+            return true;
+        }
+    }
     
     public boolean devolucaoAluguel(int id) {
         try {

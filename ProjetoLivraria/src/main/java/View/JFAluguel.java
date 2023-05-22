@@ -653,7 +653,7 @@ public final class JFAluguel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEnviarMouseClicked
-        if(verificarSelecao()){
+        if(verificarSelecao() && controle.verificarData(Integer.parseInt(jTClientes.getModel().getValueAt(jTClientes.getSelectedRow(),0).toString()))){
             enviarAluguel();
             if(controle.inserirAluguel()){
                 limparCampos();            
@@ -661,7 +661,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                 jTLivros.setModel(controle.getLivroModel("%%"));
                 atualizarTabelaTudo();
             }
-        }
+        }   
     }//GEN-LAST:event_jBEnviarMouseClicked
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
