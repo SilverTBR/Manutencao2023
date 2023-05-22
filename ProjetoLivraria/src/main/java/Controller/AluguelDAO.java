@@ -89,12 +89,10 @@ public class AluguelDAO extends TemplateDAO{
     
         public boolean verificarData(int idCliente) {
         buscarData(idCliente);
-        System.out.print(idCliente);
         try {
             Date dataAtual = new Date();
             while(rsdados != null && rsdados.next()){
             Date dataDev = formaData.parse(rsdados.getString("data_devolucao"));
-            System.out.print(dataDev);
                 if (dataDev.before(dataAtual)) {
                     JOptionPane.showMessageDialog(null, "Devolução de aluguel atrasado!\nPor favor realize a devolução do aluguel atrasado antes de prosseguir!", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
                     return false;

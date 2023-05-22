@@ -747,7 +747,11 @@ public final class JFAluguel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBDevolucaoMouseClicked
 
     private void jBRenovarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBRenovarMouseClicked
-        renovar();
+        if(jTResult.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"Nenhum aluguel foi selecionado! Por favor selecione um dos alugueis para prosseguir!","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            renovar();
+        }
     }//GEN-LAST:event_jBRenovarMouseClicked
 
     private void jBResetarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBResetarClientesActionPerformed
@@ -814,7 +818,7 @@ public final class JFAluguel extends javax.swing.JFrame {
     
     public void renovar (){
         renovacao.setVisible(true);
-        renovacao.setCampos(Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),1).toString()), Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),4).toString()), jTResult.getModel().getValueAt(jTResult.getSelectedRow(),7).toString(), jTResult.getModel().getValueAt(jTResult.getSelectedRow(),6).toString(), Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),0).toString()));
+        renovacao.setCampos(Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),1).toString()), Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),5).toString()), jTResult.getModel().getValueAt(jTResult.getSelectedRow(),8).toString(), jTResult.getModel().getValueAt(jTResult.getSelectedRow(),7).toString(), Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),0).toString()));
         renovacao.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent){
