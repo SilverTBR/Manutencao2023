@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: Controller.AluguelDAOTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.059 s <<< FAILURE! - in Controller.AluguelDAOTest
+registroDuploTest  Time elapsed: 0.03 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because the return value of "Model.Livro.getEditora()" is null
+	at Controller.AluguelDAOTest.registroDuploTest(AluguelDAOTest.java:124)
+
